@@ -1,0 +1,109 @@
+name:                hs-bundler-naive
+version:             0.1.0
+github:              nobsun/hs-bundler-naive
+license:             MIT
+author:              Nobuo Yamashita
+maintainer:          nobsun@gmail.com
+copyright:           (c) 2026 Nobuo Yamashita
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+description:         Please see the README on GitHub at <https://github.com/nobsun/hs-bundler-naive#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- unicode-show
+- bytestring
+- utf8-string
+- time
+- hspec
+- main-tester
+- doctest
+- markdown-unlit
+- aeson
+- gloss
+- brick
+- array
+- containers
+- heaps
+- constraints
+- mtl
+- free
+- extra
+- recursion-schemes
+- vector
+- directory
+- filepath
+- split
+- haskeline
+- text
+- prettyprinter
+- random
+- stm
+
+language: GHC2021
+
+default-extensions:
+- CPP
+- LambdaCase
+- ImplicitParams
+- LexicalNegation
+- NPlusKPatterns
+- OverloadedStrings
+- DataKinds
+- NoStarIsType
+- TypeFamilyDependencies
+- UndecidableInstances
+# - OverloadedRecordDot
+# - NoFieldSelectors
+# - DuplicateRecordFields
+
+ghc-options:
+# - -pgmL markdown-unlit
+- -Wall
+- -Wno-unticked-promoted-constructors
+# - -Wno-unused-imports
+# - -Wno-unused-top-binds
+- -Wno-type-defaults
+- -Wno-orphans
+- -Wno-x-partial
+
+library:
+  source-dirs: src
+
+executables:
+  hs-bundle:
+    main:               Main.hs
+    source-dirs:        app/hs-bundle
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - hs-bundler-naive
+
+  samplecase:
+    main:               Main.hs
+    source-dirs:        app/samplecase
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - hs-bundler-naive
+
+#  hs-bundler-naive:
+#    main:                Main.hs
+#    source-dirs:         app
+#    ghc-options:
+#   - -threaded
+#   - -rtsopts
+#   - -with-rtsopts=-N
+#   dependencies:
+#   - hs-bundler-naive
+
+tests:
+  hs-bundler-naive-doctest:
+    main:                doctests.hs
+    source-dirs:         test
+    dependencies:
+    - hs-bundler-naive
+    - doctest

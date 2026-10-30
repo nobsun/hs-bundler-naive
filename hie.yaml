@@ -1,0 +1,19 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "hs-bundler-naive:lib"
+
+    - path: "./app/hs-bundle/Main.hs"
+      component: "hs-bundler-naive:exe:hs-bundle"
+
+    - path: "./app/hs-bundle/Paths_hs_bundler_naive.hs"
+      component: "hs-bundler-naive:exe:hs-bundle"
+
+    - path: "./app/samplecase/Main.hs"
+      component: "hs-bundler-naive:exe:samplecase"
+
+    - path: "./app/samplecase/Paths_hs_bundler_naive.hs"
+      component: "hs-bundler-naive:exe:samplecase"
+
+    - path: "./test"
+      component: "hs-bundler-naive:test:hs-bundler-naive-doctest"
