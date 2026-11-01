@@ -18,11 +18,12 @@ import Bundler.Types
 {- DECL collectCode [] ["Bundler.Types","Bundler.CodeSegTable","Data.Map qualified as M","Data.Set qualified as S"] -}
 {- | collects import declarations and entity definitions
 -}
-collectCode :: CodeSegTable -> [EntityName] -> (S.Set ImportLine, M.Map EntityName CodePart)
-collectCode tbl = iter S.empty S.empty M.empty
+collectCode :: CodeSegTable -> ([EntityName],[ImportLine]) -> (S.Set ImportLine, M.Map EntityName CodePart)
+collectCode tbl (es0,imps0) = iter S.empty S.empty M.empty es0
     where
+        
         iter ents imps csgs = \ case
-            []   -> (imps, csgs)
+            []   -> (imps `S.difference` S.fromList imps0, csgs)
             e:es | S.member e ents -> iter ents imps csgs es
                  | otherwise -> case tbl M.!? e of
                     Nothing      -> error "collectCode: not in CodeSegTable"
@@ -42,6 +43,6 @@ _test :: IO ()
 _test = do
     { testmod <- readFile "/home/nobsun/proj/hs-bundler-naive/src/Sample/Bonsai.hs"
     ; let testtbl = moduleToCodeSegTable testmod
-    ; let (imls,cdls) = genCodes $ collectCode testtbl ["msFromList","msToList"]
+    ; let (imls,cdls) = genCodes $ collectCode testtbl (["msFromList","msToList"],["Data.List"])
     ; putStr $ unlines $ imls ++ "" : cdls
     }

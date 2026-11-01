@@ -18,6 +18,7 @@ bundle (name, src) target
             (cs,d:ds) -> unlines (as ++ imps ++ cs ++ d:cds ++ ds)
             where
                 impls = readImpLs $ dropWhile ('(' /=) b
+                imps0  = map (unwords . drop 1 . words) $ filter (isPrefixOf "import") as
                 tbl   = moduleToCodeSegTable src
-                (imps, cds) = genCodes (collectCode tbl impls)
+                (imps, cds) = genCodes (collectCode tbl (impls, imps0))
         _         -> error "bundle: not found bundle source"
