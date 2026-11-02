@@ -2,9 +2,7 @@
 dist-new/
 hs-bundler-naive.cabal
 *.log
-.curproj
 .curname
-!programming_session.log
 core
 *.hi
 *.o
